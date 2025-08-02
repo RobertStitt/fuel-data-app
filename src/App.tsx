@@ -1,32 +1,31 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { BrowserRouter as Router, Routes, Route } from "react-router";
+import Home from "./Pages/Home";
+import AppLayout from "./Layouts/AppLayout";
+import Favorites from "./Pages/Favorites";
+import About from "./Pages/About";
+import SpeciesGallery from "./Pages/SpeciesGallery";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Router>
+        <Routes>
+          {/* Dashboard Layout */}
+          <Route element={<AppLayout />}>
+            <Route index path="/" element={<Home />} />
+            <Route index path="/species-gallery" element={<SpeciesGallery />} />
+            <Route index path="/favorites" element={<Favorites />} />
+            <Route index path="/about" element={<About />} />
+          </Route>
+
+          {/* Auth Layout */}
+          {/* <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} /> */}
+
+          {/* Fallback Route */}
+          {/* <Route path="*" element={<NotFound />} /> */}
+        </Routes>
+      </Router>
     </>
   );
 }
