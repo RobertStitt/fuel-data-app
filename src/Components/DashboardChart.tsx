@@ -1,17 +1,32 @@
 import { AgGridReact } from "ag-grid-react";
-import { useEffect, useState, type JSX } from "react";
+import { useCallback, useEffect, useRef, useState, type JSX } from "react";
 import { Heart } from "lucide-react";
-import useDataStore, { type StoreState } from "../store";
+import useDataStore, { type AutoData, type StoreState } from "../store";
 
 const DashboardChart: React.FC = () => {
-  const { autoData } = useDataStore((state: StoreState) => state);
-  const [rowData, setRowData] = useState<any>([]);
-  const [colDefs, setColDefs] = useState<any>([]);
+  const { autoData, setFavoritesList } = useDataStore(
+    (state: StoreState) => state
+  );
+  const [rowData, setRowData] = useState<AutoData>([]);
+  const [colDefs, setColDefs] = useState<
+    {
+      field: string;
+      cellRenderer?: (value: any) => void | JSX.Element;
+    }[]
+  >([]);
   const [favorites, setFavorites] = useState([]);
+  const gridRef = useRef<AgGridReact>(null);
 
   const defaultColDef = {
-    flex: 1,
+    flex: 2,
   };
+
+  const onFilterTextBoxChanged = useCallback(() => {
+    const inputElement = document.getElementById(
+      "filter-text-box"
+    )! as HTMLInputElement;
+    gridRef?.current?.api.setGridOption("quickFilterText", inputElement.value);
+  }, []);
 
   const toggleFavorite = (index: number) => {
     const attributes = rowData[index];
@@ -75,7 +90,9 @@ const DashboardChart: React.FC = () => {
   }, [autoData]);
 
   useEffect(() => {
+    if (favorites.length === 0) return;
     localStorage.setItem("favorites", JSON.stringify(favorites));
+    setFavoritesList(favorites);
   }, [favorites]);
 
   useEffect(() => {
@@ -91,12 +108,23 @@ const DashboardChart: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-(--breakpoint-2xl)">
+      <div className="mb-5">
+        <span>Search Filter:</span>
+        <input
+          className="ml-2 p-1 border border-gray-300 rounded bg-white"
+          type="text"
+          id="filter-text-box"
+          onInput={onFilterTextBoxChanged}
+        />
+      </div>
       <div style={{ width: "100%", height: "600px" }}>
         <AgGridReact
+          ref={gridRef}
           rowData={rowData}
           columnDefs={colDefs}
           defaultColDef={defaultColDef}
           pagination={true}
+          quickFilterParser={(text) => text.split(",")}
         />
       </div>
     </div>
