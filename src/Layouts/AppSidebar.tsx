@@ -11,8 +11,8 @@ const navItems: NavItem[] = [
     path: "/",
   },
   {
-    name: "Species Gallery",
-    path: "/species-gallery",
+    name: "Gallery",
+    path: "/gallery",
   },
   {
     name: "Favorites",
@@ -30,7 +30,7 @@ const AppSidebar: React.FC = () => {
       <nav>
         <ul>
           {navItems.map((item) => (
-            <li key={item.name}>
+            <li key={item.name} className="mb-2">
               <NavLink to={item.path}>{item.name}</NavLink>
             </li>
           ))}

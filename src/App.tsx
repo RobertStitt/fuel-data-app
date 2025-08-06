@@ -3,7 +3,8 @@ import Home from "./Pages/Home";
 import AppLayout from "./Layouts/AppLayout";
 import Favorites from "./Pages/Favorites";
 import About from "./Pages/About";
-import SpeciesGallery from "./Pages/SpeciesGallery";
+import Gallery from "./Pages/Gallery";
+import SpeciesDetail from "./Pages/Details";
 
 function App() {
   return (
@@ -13,9 +14,11 @@ function App() {
           {/* Dashboard Layout */}
           <Route element={<AppLayout />}>
             <Route index path="/" element={<Home />} />
-            <Route index path="/species-gallery" element={<SpeciesGallery />} />
-            <Route index path="/favorites" element={<Favorites />} />
-            <Route index path="/about" element={<About />} />
+            <Route path="gallery" element={<Gallery />} />
+            <Route path="gallery/:speciesId" element={<SpeciesDetail />} />
+
+            <Route path="favorites" element={<Favorites />} />
+            <Route path="about" element={<About />} />
           </Route>
 
           {/* Auth Layout */}
