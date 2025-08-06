@@ -7,7 +7,7 @@ const DashboardChart: React.FC = () => {
   const { autoData, setFavoritesList } = useDataStore(
     (state: StoreState) => state
   );
-  const [rowData, setRowData] = useState<AutoData>([]);
+  const [rowData, setRowData] = useState<AutoData>(autoData);
   const [colDefs, setColDefs] = useState<
     {
       field: string;
@@ -34,14 +34,15 @@ const DashboardChart: React.FC = () => {
       index,
       attributes,
     };
-
     setFavorites((previous: any) => {
-      const favoriteAlready = previous.find(
-        (fav: { index: number }) => fav.index === favoriteItem.index
+      const favoriteAlready = previous?.find(
+        (fav: { index: number }) => fav?.index === favoriteItem?.index
       );
-
       if (favoriteAlready) {
-        return previous.filter((fav: any) => fav.index !== favoriteItem.index);
+        localStorage.setItem("favorites", JSON.stringify([]));
+        return previous?.filter(
+          (fav: any) => fav?.index !== favoriteItem?.index
+        );
       } else {
         return [...previous, { ...favoriteItem }];
       }

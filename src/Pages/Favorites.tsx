@@ -6,6 +6,7 @@ const Favorites: React.FC = () => {
   const { favoritesList } = useDataStore((state: StoreState) => state);
   const [rowData, setRowData] = useState<any>([]);
   const [colDefs, setColDefs] = useState<any>([]);
+
   useEffect(() => {
     if (favoritesList && favoritesList?.length > 0) {
       const columns: {
@@ -24,16 +25,20 @@ const Favorites: React.FC = () => {
       <h1 className="text-2xl font-bold mb-10">Favorites</h1>
       <p>This is the favorited auto data.</p>
       <br />
-      <div style={{ width: "100%", height: "600px" }}>
-        <AgGridReact
-          rowData={rowData}
-          columnDefs={colDefs}
-          pagination={true}
-          defaultColDef={{
-            flex: 2,
-          }}
-        />
-      </div>
+      {rowData.length === 0 ? (
+        <p className="text-gray-500">No favorites found.</p>
+      ) : (
+        <div style={{ width: "100%", height: "600px" }}>
+          <AgGridReact
+            rowData={rowData}
+            columnDefs={colDefs}
+            pagination={true}
+            defaultColDef={{
+              flex: 2,
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -26,7 +26,7 @@ const Details: React.FC = () => {
     <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
       <h1 className="text-2xl font-bold mb-10">Details</h1>
       <p>This is the Details based on number of cylinders.</p>
-
+      <br />
       <div style={{ width: "100%", height: "600px" }}>
         <AgGridReact
           rowData={rowData}
