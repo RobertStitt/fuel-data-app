@@ -4,7 +4,7 @@ import AppLayout from "./Layouts/AppLayout";
 import Favorites from "./Pages/Favorites";
 import About from "./Pages/About";
 import Gallery from "./Pages/Gallery";
-import SpeciesDetail from "./Pages/Details";
+import Detail from "./Pages/Details";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index path="/" element={<Home />} />
             <Route path="gallery" element={<Gallery />} />
-            <Route path="gallery/:speciesId" element={<SpeciesDetail />} />
+            <Route path="gallery/:id" element={<Detail />} />
 
             <Route path="favorites" element={<Favorites />} />
             <Route path="about" element={<About />} />

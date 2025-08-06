@@ -26,7 +26,6 @@ const LayoutContent: React.FC = () => {
     };
     fetchData();
   }, [autoData]);
-
   return (
     <div className="min-h-screen xl:flex">
       <div className="p-[30px] min-w-[180px]">

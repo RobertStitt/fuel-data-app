@@ -111,7 +111,7 @@ const DashboardChart: React.FC = () => {
       <div className="mb-5">
         <span>Search Filter:</span>
         <input
-          className="ml-2 p-1 border border-gray-300 rounded bg-white"
+          className="ml-2 p-1 border border-gray-300 rounded bg-white text-gray-800 pl-2"
           type="text"
           id="filter-text-box"
           onInput={onFilterTextBoxChanged}
