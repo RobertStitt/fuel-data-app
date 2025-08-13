@@ -28,24 +28,28 @@ const DashboardChart: React.FC = () => {
   }, []);
 
   const toggleFavorite = (index: number) => {
-    const attributes = rowData[index];
-    const favoriteItem = {
-      index,
-      attributes,
-    };
-    setFavorites((previous: any) => {
-      const favoriteAlready = previous?.find(
-        (fav: { index: number }) => fav?.index === favoriteItem?.index
-      );
-      if (favoriteAlready) {
-        localStorage.setItem("favorites", JSON.stringify([]));
-        return previous?.filter(
-          (fav: any) => fav?.index !== favoriteItem?.index
+    console.log(rowData, autoData);
+    if (rowData && rowData[index]) {
+      const attributes = rowData[index];
+      const favoriteItem = {
+        index,
+        attributes,
+      };
+      setFavorites((previous: any) => {
+        const favoriteAlready = previous?.find(
+          (fav: { index: number }) => fav?.index === favoriteItem?.index
         );
-      } else {
-        return [...previous, { ...favoriteItem }];
-      }
-    });
+        if (favoriteAlready) {
+          localStorage.setItem("favorites", JSON.stringify([]));
+          return previous?.filter(
+            (fav: any) => fav?.index !== favoriteItem?.index
+          );
+        } else {
+          console.log(previous, favoriteItem);
+          return [...previous, { ...favoriteItem }];
+        }
+      });
+    }
   };
 
   const favoriteButton = (value: { node: { childIndex: number } }) => {
@@ -91,6 +95,7 @@ const DashboardChart: React.FC = () => {
 
   useEffect(() => {
     if (favorites.length === 0) return;
+    console.log("FAV", favorites);
     localStorage.setItem("favorites", JSON.stringify(favorites));
     setFavoritesList(favorites);
   }, [favorites]);
