@@ -92,6 +92,7 @@ const DashboardChart: React.FC = () => {
       });
       setColDefs(columns);
       setRowData(autoData);
+      console.log("HERE", autoData);
     }
   }, [autoData]);
 
