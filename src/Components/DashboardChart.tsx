@@ -28,7 +28,8 @@ const DashboardChart: React.FC = () => {
   }, []);
 
   const toggleFavorite = (index: number) => {
-    console.log(rowData, autoData);
+    console.log("ROWDATA", rowData);
+    console.log("AUTODA", autoData);
     if (rowData && rowData[index]) {
       const attributes = rowData[index];
       const favoriteItem = {
@@ -76,6 +77,7 @@ const DashboardChart: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log("AUTO DATA", autoData);
     if (autoData && autoData.length > 0) {
       const columns: {
         field: string;
