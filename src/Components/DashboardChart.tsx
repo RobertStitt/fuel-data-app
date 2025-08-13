@@ -16,7 +16,6 @@ const DashboardChart: React.FC = () => {
   >([]);
   const [favorites, setFavorites] = useState([]);
   const gridRef = useRef<AgGridReact>(null);
-
   const defaultColDef = {
     flex: 2,
   };
